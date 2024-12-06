@@ -444,3 +444,67 @@
 2024-12-04 23:51:48 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=15, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
 2024-12-04 23:51:48 [Customer-2] INFO  org.example.Customer - Customer-2 trying to purchase a ticket
 2024-12-04 23:51:48 [Customer-2] INFO  org.example.TicketPool - Ticket{ticketId=16, eventName='Simple Event', ticketPrice=1000} purchased by Customer-2
+2024-12-06 13:44:34 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:34 [Vendor-1] INFO  org.example.TicketPool - Ticket{ticketId=1, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-1
+2024-12-06 13:44:34 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=2, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:34 [Vendor-3] INFO  org.example.TicketPool - Ticket{ticketId=3, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-3
+2024-12-06 13:44:34 [Vendor-1] INFO  org.example.Vendor - V001 released a ticket. Total released by this vendor: 0. Total tickets overall: 3
+2024-12-06 13:44:34 [Vendor-3] INFO  org.example.Vendor - V003 released a ticket. Total released by this vendor: 0. Total tickets overall: 3
+2024-12-06 13:44:34 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 0. Total tickets overall: 3
+2024-12-06 13:44:34 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=1, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:35 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=4, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:35 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 1. Total tickets overall: 5
+2024-12-06 13:44:35 [Vendor-1] INFO  org.example.TicketPool - Ticket{ticketId=5, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-1
+2024-12-06 13:44:35 [Vendor-1] INFO  org.example.Vendor - V001 released a ticket. Total released by this vendor: 1. Total tickets overall: 5
+2024-12-06 13:44:35 [Vendor-3] INFO  org.example.TicketPool - Ticket{ticketId=6, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-3
+2024-12-06 13:44:35 [Vendor-3] INFO  org.example.Vendor - V003 released a ticket. Total released by this vendor: 1. Total tickets overall: 6
+2024-12-06 13:44:36 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:36 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=2, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:36 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=7, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:36 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 2. Total tickets overall: 7
+2024-12-06 13:44:38 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:38 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=3, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:38 [Vendor-1] INFO  org.example.TicketPool - Ticket{ticketId=8, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-1
+2024-12-06 13:44:38 [Vendor-1] INFO  org.example.Vendor - V001 released a ticket. Total released by this vendor: 2. Total tickets overall: 10
+2024-12-06 13:44:40 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:40 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=4, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:40 [Vendor-3] INFO  org.example.TicketPool - Ticket{ticketId=9, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-3
+2024-12-06 13:44:40 [Vendor-3] INFO  org.example.Vendor - V003 released a ticket. Total released by this vendor: 2. Total tickets overall: 11
+2024-12-06 13:44:42 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:42 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=5, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:42 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=10, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:42 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 3. Total tickets overall: 12
+2024-12-06 13:44:44 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:44 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=6, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:44 [Vendor-1] INFO  org.example.TicketPool - Ticket{ticketId=11, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-1
+2024-12-06 13:44:44 [Vendor-1] INFO  org.example.Vendor - V001 released a ticket. Total released by this vendor: 3. Total tickets overall: 13
+2024-12-06 13:44:46 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:46 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=7, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:46 [Vendor-3] INFO  org.example.TicketPool - Ticket{ticketId=12, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-3
+2024-12-06 13:44:46 [Vendor-3] INFO  org.example.Vendor - V003 released a ticket. Total released by this vendor: 3. Total tickets overall: 14
+2024-12-06 13:44:48 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:48 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=8, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:48 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=13, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:48 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 4. Total tickets overall: 15
+2024-12-06 13:44:50 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:50 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=9, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:50 [Vendor-1] INFO  org.example.TicketPool - Ticket{ticketId=14, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-1
+2024-12-06 13:44:50 [Vendor-1] INFO  org.example.Vendor - V001 released a ticket. Total released by this vendor: 4. Total tickets overall: 16
+2024-12-06 13:44:52 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:52 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=10, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:52 [Vendor-3] INFO  org.example.TicketPool - Ticket{ticketId=15, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-3
+2024-12-06 13:44:52 [Vendor-3] INFO  org.example.Vendor - V003 released a ticket. Total released by this vendor: 4. Total tickets overall: 17
+2024-12-06 13:44:54 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:54 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=11, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:54 [Vendor-2] INFO  org.example.TicketPool - Ticket{ticketId=16, eventName='Simple Event', ticketPrice=1000} added to ticket pool by Vendor-2
+2024-12-06 13:44:54 [Vendor-2] INFO  org.example.Vendor - V002 released a ticket. Total released by this vendor: 5. Total tickets overall: 18
+2024-12-06 13:44:56 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:56 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=12, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:44:58 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:44:58 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=13, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:45:00 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:45:00 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=14, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:45:02 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:45:02 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=15, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
+2024-12-06 13:45:04 [Customer-1] INFO  org.example.Customer - Customer-1 trying to purchase a ticket
+2024-12-06 13:45:04 [Customer-1] INFO  org.example.TicketPool - Ticket{ticketId=16, eventName='Simple Event', ticketPrice=1000} purchased by Customer-1
