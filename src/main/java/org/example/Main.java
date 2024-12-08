@@ -1,6 +1,8 @@
 package org.example;
 
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,6 +19,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        final Logger logger = LogManager.getLogger();
+
         boolean validOption = false;
         while (!validOption) {
             System.out.print("Enter \"a\" for new configuration or \"b\" to use previous configuration: ");
@@ -24,9 +28,7 @@ public class Main {
             switch (opt) {
                 case "a":
                     config = Configuration.getUserConfiguration();
-                    System.out.println("Configuration successful: " + config);
 
-                    // Save configuration to file (unchanged)
                     try (FileWriter writer = new FileWriter("/Users/chanirumannapperuma/Downloads/RealTimeTicketing/src/main/resources/configuration.json")) {
                         gson.toJson(config, writer);
                     } catch (IOException e) {
@@ -42,13 +44,14 @@ public class Main {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    System.out.println("Configuration successful: " + config);
+
                     validOption = true;
                     break;
                 default:
                     System.out.println("Invalid option selected.");
             }
         }
+        logger.info("Configuration successful: " + config);
 
         TicketPool ticketPool = new TicketPool(config.getMaxTicketCapacity(), config.getTotalTickets());
 
@@ -60,7 +63,7 @@ public class Main {
         boolean validVendorsInput = false;
         boolean validCustomersInput = false;
 
-// Loop for validating vendor input
+        // Loop for validating vendor input
         while (!validVendorsInput) {
             try {
                 System.out.print("Enter number of Vendors: ");
@@ -76,7 +79,7 @@ public class Main {
             }
         }
 
-// Loop for validating customer input
+        // Loop for validating customer input
         while (!validCustomersInput) {
             try {
                 System.out.print("Enter number of Customers: ");
@@ -92,20 +95,37 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < vendors; i++) {
-            String vendorID = ("V00"+(i+1));
-            Vendor vendor = new Vendor(vendorID, ticketPool, config.getTicketReleaseRate());
-            Thread vendorThread = new Thread(vendor, "Vendor-" + (i + 1));
+        validOption = false;
+        while (!validOption) {
+            System.out.print("Enter \"a\" to start the simulation or \"b\" to quit: ");
+            String opt = scanner.next();
+            switch (opt) {
+                case "a":
+                    logger.info("Starting simulation...");
+                    for (int i = 0; i < vendors; i++) {
+                        String vendorID = ("V00"+(i+1));
+                        Vendor vendor = new Vendor(vendorID, ticketPool, config.getTicketReleaseRate());
+                        Thread vendorThread = new Thread(vendor, "Vendor-" + (i + 1));
 
-            vendorThread.start();
-        }
+                        vendorThread.start();
+                    }
 
+                    for (int i = 0; i < customers; i++) {
+                        String customerID = "C00" + (i + 1);
+                        Customer customer = new Customer(customerID, ticketPool, config.getCustomerRetrievalRate());
+                        Thread customerThread = new Thread(customer, "Customer-" + (i + 1));
 
-        for (int i = 0; i < customers; i++) {
-            String customerID = "C00" + (i + 1);
-            Customer customer = new Customer(customerID, ticketPool, config.getCustomerRetrievalRate());
-            Thread customerThread = new Thread(customer, "Customer-" + (i + 1));
-            customerThread.start();
+                        customerThread.start();
+                    }
+                    validOption = true;
+                    break;
+                case "b":
+                    logger.info("User quitting...");
+                    validOption = true;
+                    break;
+                default:
+                    System.out.println("Invalid option selected.");
+            }
         }
     }
 

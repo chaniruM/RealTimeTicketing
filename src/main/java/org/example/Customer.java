@@ -21,24 +21,6 @@ public class Customer implements Runnable{
 
     private static final AtomicInteger count = new AtomicInteger(0);
 
-//    @Override
-//    public void run() {
-//        for (int i=0; i<numTickets; i++){
-//            System.out.println(Thread.currentThread().getName() + " trying to purchase a ticket");
-//            logger.info(Thread.currentThread().getName() + " trying to purchase a ticket");
-//            Ticket ticket = ticketPool.removeTickets();
-//            System.out.println("Ticket - " + ticket.getTicketId() + " bought by - " + Thread.currentThread().getName());
-//            try {
-//                Thread.sleep(retrievalRate * 1000); // Retieving delay
-//            } catch (InterruptedException e) {
-//                logger.error(customerID + " was interrupted.");
-//                System.out.println(Thread.currentThread().getName() + " was interrupted.");
-//                throw new RuntimeException(e);
-//            }
-//        }
-//
-//    }
-
     @Override
     public void run() {
         while (true) {
@@ -47,15 +29,12 @@ public class Customer implements Runnable{
                 break; // Stop buying tickets if the total limit is reached
             }
 
-            System.out.println(Thread.currentThread().getName() + " trying to purchase a ticket");
             logger.info(Thread.currentThread().getName() + " trying to purchase a ticket");
-            Ticket ticket = ticketPool.removeTickets();
-            System.out.println("Ticket - " + ticket.getTicketId() + " bought by - " + Thread.currentThread().getName());
+            ticketPool.removeTickets();
             try {
                 Thread.sleep(retrievalRate * 1000); // Retieving delay
             } catch (InterruptedException e) {
                 logger.error(customerID + " was interrupted.");
-                System.out.println(Thread.currentThread().getName() + " was interrupted.");
                 throw new RuntimeException(e);
             }
         }

@@ -12,7 +12,6 @@ public class Vendor implements Runnable{
     private int ticketsAdded = 0;
     private String vendorID;
 
-    //    private int ticketsPerRelease;
     private static final Logger logger = LogManager.getLogger(Vendor.class);
 
     public Vendor(String vendorID, TicketPool ticketPool, int releaseRate){
@@ -20,7 +19,6 @@ public class Vendor implements Runnable{
         this.ticketPool = ticketPool;
         this.releaseRate = releaseRate;
     }
-
 
     private static final AtomicInteger count = new AtomicInteger(0);
 
@@ -34,31 +32,15 @@ public class Vendor implements Runnable{
 
             Ticket ticket = new Ticket(ticketID, "Simple Event", new BigDecimal("1000"));
             ticketPool.addTickets(ticket);
-            logger.info(vendorID + " released a ticket. Total released by this vendor: " + (ticketsAdded++) + ". Total tickets overall: " + count);
+            logger.info(Thread.currentThread().getName() + " released a ticket. Total released by this vendor: " + (++ticketsAdded) + ".");
 
             try {
                 Thread.sleep(releaseRate * 1000); // Convert seconds to milliseconds
             } catch (InterruptedException e) {
-                logger.error("Vendor thread interrupted: " + e.getMessage());
                 Thread.currentThread().interrupt();
-                break;
+                logger.error("Vendor thread interrupted: " + e.getMessage());
+                throw new RuntimeException(e);
             }
         }
     }
-//    @Override
-//    public void run() {
-//        while (count < ticketPool.getTotalTickets()) {
-//            Ticket ticket = new Ticket(++count,"Simple Event", new BigDecimal("1000"));
-//            logger.info(vendorID + " released a ticket. Total released by this vendor: " + (ticketsAdded++) + ". Total tickets overall: " + count);
-//            ticketPool.addTickets(ticket);
-//            try {
-//                Thread.sleep(releaseRate * 1000); // To calculate to MS
-//            } catch (InterruptedException e) {
-//                logger.error("Vendor thread interrupted: " + e.getMessage());
-//                throw new RuntimeException(e);
-//            }
-//        }
-//    }
-
-
 }
