@@ -11,16 +11,24 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Main class to manage the ticketing system simulation.
+ * Includes configuration setup, thread creation for vendors and customers,
+ * and simulation control.
+ */
 public class Main {
+
+    private final static Logger logger = LogManager.getLogger();
+
     public static void main(String[] args) {
 
+        //Gson instance for reading and writing the configuration details in the JSON file
         Gson gson = new Gson();
         Configuration config = null;
 
         Scanner scanner = new Scanner(System.in);
 
-        final Logger logger = LogManager.getLogger();
-
+        //Configuration option selection
         boolean validOption = false;
         while (!validOption) {
             System.out.print("Enter \"a\" for new configuration or \"b\" to use previous configuration: ");
@@ -30,18 +38,20 @@ public class Main {
                     config = Configuration.getUserConfiguration();
 
                     try (FileWriter writer = new FileWriter("/Users/chanirumannapperuma/Downloads/RealTimeTicketing/src/main/resources/configuration.json")) {
-                        gson.toJson(config, writer);
+                        gson.toJson(config, writer); //saving the configuration in a JSON file
                     } catch (IOException e) {
+                        logger.error(e.getMessage());
                         throw new RuntimeException(e);
                     }
                     validOption = true;
                     break;
                 case "b":
                     try (FileReader reader = new FileReader("/Users/chanirumannapperuma/Downloads/RealTimeTicketing/src/main/resources/configuration.json")) {
-                        config = gson.fromJson(reader, Configuration.class);
+                        config = gson.fromJson(reader, Configuration.class); //retrieving the configuration from a JSON file
                     } catch (FileNotFoundException e) {
-                        // Handle file not found case (optional)
+                        logger.error(e.getMessage());
                     } catch (IOException e) {
+                        logger.error(e.getMessage());
                         throw new RuntimeException(e);
                     }
 
@@ -53,48 +63,14 @@ public class Main {
         }
         logger.info("Configuration successful: " + config);
 
+        // Initialize the TicketPool with configuration parameters
         TicketPool ticketPool = new TicketPool(config.getMaxTicketCapacity(), config.getTotalTickets());
 
+        // Validate and get the number of vendor and customer threads
+        int vendors = validateThreads("vendor");
+        int customers = validateThreads("customer");
 
-        int vendors = 0;
-        int customers = 0;
-
-
-        boolean validVendorsInput = false;
-        boolean validCustomersInput = false;
-
-        // Loop for validating vendor input
-        while (!validVendorsInput) {
-            try {
-                System.out.print("Enter number of Vendors: ");
-                vendors = scanner.nextInt();
-                if (vendors <= 0) {
-                    System.out.println("Vendors must be a positive number.");
-                } else {
-                    validVendorsInput = true; // Exit the loop when the input is valid
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer for the number of Vendors.");
-                scanner.next(); // Clear the invalid input from the buffer
-            }
-        }
-
-        // Loop for validating customer input
-        while (!validCustomersInput) {
-            try {
-                System.out.print("Enter number of Customers: ");
-                customers = scanner.nextInt();
-                if (customers <= 0) {
-                    System.out.println("Customers must be a positive number.");
-                } else {
-                    validCustomersInput = true; // Exit the loop when the input is valid
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer for the number of Customers.");
-                scanner.next(); // Clear the invalid input from the buffer
-            }
-        }
-
+        // Options to start the simulation or quit
         validOption = false;
         while (!validOption) {
             System.out.print("Enter \"a\" to start the simulation or \"b\" to quit: ");
@@ -102,6 +78,7 @@ public class Main {
             switch (opt) {
                 case "a":
                     logger.info("Starting simulation...");
+                    // Create and start vendor threads
                     for (int i = 0; i < vendors; i++) {
                         String vendorID = ("V00"+(i+1));
                         Vendor vendor = new Vendor(vendorID, ticketPool, config.getTicketReleaseRate());
@@ -109,7 +86,7 @@ public class Main {
 
                         vendorThread.start();
                     }
-
+                    // Create and start customer threads
                     for (int i = 0; i < customers; i++) {
                         String customerID = "C00" + (i + 1);
                         Customer customer = new Customer(customerID, ticketPool, config.getCustomerRetrievalRate());
@@ -127,6 +104,35 @@ public class Main {
                     System.out.println("Invalid option selected.");
             }
         }
+    }
+
+    /**
+     * Prompots for and validates user input for the number of threads.
+     *
+     * @param threadType The type of thread ("vendor" or "customer")
+     * @return The validated number of threads
+     */
+    public static int validateThreads(String threadType){
+        Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        int temp=0; //temporarily holds the value for the input to check for positive integers
+
+        while (!validInput) {
+            try {
+                System.out.print("Enter number of "+threadType+" threads: ");
+                temp = scanner.nextInt();
+                if (temp <= 0) {
+                    System.out.println("The number of threads must be a positive number.");
+                } else {
+                    validInput = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter an integer for the number of "+threadType+"s.");
+                scanner.next();
+            }
+        }
+
+        return temp;
     }
 
 }

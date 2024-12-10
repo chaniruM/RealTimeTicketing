@@ -9,18 +9,25 @@ import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * TicketPool manages the pool of tickets shared between Vendors and Customers.
+ * Implements thread-safe operations for adding and retrieving tickets.
+ */
 public class TicketPool {
-    private List<Ticket> tickets = Collections.synchronizedList(new ArrayList<>());
-    private final int maxTicketCapacity;
+    private List<Ticket> tickets = Collections.synchronizedList(new ArrayList<>()); // Thread safe structure to store tickets
+
+    private final int maxTicketCapacity; // Maximum ticket capacity in the pool
+
+    private int totalTickets; //maximum number of tickets to be sold by all vendors combined
+
     private final ReentrantLock lock = new ReentrantLock();
 
-    private final Condition notEmpty = lock.newCondition();
-    private final Condition notFull = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition(); //holds the customer threads until tickets are added to the pool
+    private final Condition notFull = lock.newCondition(); //holds the vendor threads until there is more space the pool
 
-    private static int ticketsSold = 0;
+    private static int ticketsSold = 0; //overall tickets sold
 
-    private int totalTickets = 0;
-    private static int count = 0;
+    private static int count = 0; //overall tickets added
 
     private static final Logger logger = LogManager.getLogger(TicketPool.class);
 
@@ -36,18 +43,27 @@ public class TicketPool {
         return maxTicketCapacity;
     }
 
-    public int getTotalTickets() {return totalTickets;}
+    public int getTotalTickets() {
+        return totalTickets;
+    }
 
     public TicketPool(int maxTicketCapacity, int totalTickets) {
         this.maxTicketCapacity = maxTicketCapacity;
         this.totalTickets = totalTickets;
     }
 
+    /**
+     * Adds a new ticket to the pool. This method is synchronized using a ReentrantLock
+     * to ensure thread safety when multiple vendors try to add tickets concurrently.
+     *
+     * @param ticket The ticket object to be added to the pool.
+     * @throws InterruptedException If the thread is interrupted while waiting for space in the pool.
+     */
     public void addTickets(Ticket ticket) {
         lock.lock();
         try {
             while (tickets.size() >= maxTicketCapacity) {
-                logger.info("Ticket pool full");
+                logger.info("Ticket pool full. "+Thread.currentThread().getName()+" waiting for tickets to be sold...");
                 notFull.await(); // Wait until space is available
             }
             tickets.add(ticket);
@@ -62,6 +78,13 @@ public class TicketPool {
         }
     }
 
+    /**
+     * Removes and returns a ticket from the pool. This method is synchronized using a ReentrantLock
+     * to ensure thread safety when multiple customers try to remove tickets concurrently.
+     *
+     * @return The removed ticket object.
+     * @throws InterruptedException If the thread is interrupted while waiting for tickets to be added to the pool.
+     */
     public Ticket removeTickets() {
         lock.lock();
         try {
