@@ -56,7 +56,7 @@ public class Vendor implements Runnable{
             try {
                 Thread.sleep(releaseRate * 1000); // Delays the thread
             } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt(); //*********************************************************************
+                Thread.currentThread().interrupt();
                 logger.error(Thread.currentThread().getName()+" thread interrupted: " + e.getMessage());
                 throw new RuntimeException(e);
             }

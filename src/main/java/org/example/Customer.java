@@ -14,7 +14,7 @@ public class Customer implements Runnable{
     private TicketPool ticketPool;
     private String customerID;
     private int retrievalRate;
-    private int totalTickets;
+//    private int totalTickets = ticketPool.getTotalTickets();
     private static final Logger logger = LogManager.getLogger(Customer.class);
 
     /**
@@ -28,7 +28,7 @@ public class Customer implements Runnable{
         this.ticketPool = ticketPool;
         this.retrievalRate = retrievalRate;
         this.customerID = customerID;
-        this.totalTickets = ticketPool.getTotalTickets();
+//        this.totalTickets = ticketPool.getTotalTickets();
     }
 
     /**
@@ -47,7 +47,7 @@ public class Customer implements Runnable{
 
             //ensures that tickets sold does not exceed total tickets limit
             if (sold > ticketPool.getTotalTickets()) {
-                logger.error(Thread.currentThread().getName() + " stopping as tickets are sold out.");
+                logger.info(Thread.currentThread().getName() + " stopping as tickets are sold out.");
                 break;
             }
 
@@ -57,6 +57,7 @@ public class Customer implements Runnable{
             try {
                 Thread.sleep(retrievalRate * 1000); // Delays the thread
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 logger.error(Thread.currentThread().getName()+" thread interrupted: " + e.getMessage());
                 throw new RuntimeException(e);
             }

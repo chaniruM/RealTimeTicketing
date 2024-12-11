@@ -31,10 +31,6 @@ public class TicketPool {
 
     private static final Logger logger = LogManager.getLogger(TicketPool.class);
 
-    public int getTicketsSize() {
-        return tickets.size();
-    }
-
     public static int getTicketsSold() {
         return ticketsSold;
     }
@@ -50,6 +46,34 @@ public class TicketPool {
     public TicketPool(int maxTicketCapacity, int totalTickets) {
         this.maxTicketCapacity = maxTicketCapacity;
         this.totalTickets = totalTickets;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets = totalTickets;
+    }
+
+    public static void setTicketsSold(int ticketsSold) {
+        TicketPool.ticketsSold = ticketsSold;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        TicketPool.count = count;
+    }
+
+    public int getTicketsSize() {
+        return tickets.size();
     }
 
     /**

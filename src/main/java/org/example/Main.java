@@ -37,7 +37,7 @@ public class Main {
                 case "a":
                     config = Configuration.getUserConfiguration();
 
-                    try (FileWriter writer = new FileWriter("/Users/chanirumannapperuma/Downloads/RealTimeTicketing/src/main/resources/configuration.json")) {
+                    try (FileWriter writer = new FileWriter("src/main/resources/configuration.json")) {
                         gson.toJson(config, writer); //saving the configuration in a JSON file
                     } catch (IOException e) {
                         logger.error(e.getMessage());
@@ -46,7 +46,7 @@ public class Main {
                     validOption = true;
                     break;
                 case "b":
-                    try (FileReader reader = new FileReader("/Users/chanirumannapperuma/Downloads/RealTimeTicketing/src/main/resources/configuration.json")) {
+                    try (FileReader reader = new FileReader("src/main/resources/configuration.json")) {
                         config = gson.fromJson(reader, Configuration.class); //retrieving the configuration from a JSON file
                     } catch (FileNotFoundException e) {
                         logger.error(e.getMessage());
