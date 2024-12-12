@@ -14,7 +14,6 @@ public class Customer implements Runnable{
     private TicketPool ticketPool;
     private String customerID;
     private int retrievalRate;
-//    private int totalTickets = ticketPool.getTotalTickets();
     private static final Logger logger = LogManager.getLogger(Customer.class);
 
     /**
@@ -28,7 +27,6 @@ public class Customer implements Runnable{
         this.ticketPool = ticketPool;
         this.retrievalRate = retrievalRate;
         this.customerID = customerID;
-//        this.totalTickets = ticketPool.getTotalTickets();
     }
 
     /**

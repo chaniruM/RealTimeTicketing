@@ -21,6 +21,10 @@ public class Main {
     private final static Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
+        System.out.println("Welcome to the RealTimeTicketing_CLI!");
+        System.out.println();
+        System.out.println("Let's set a new simulation configuration...");
+        System.out.println();
 
         //Gson instance for reading and writing the configuration details in the JSON file
         Gson gson = new Gson();
@@ -50,11 +54,19 @@ public class Main {
                         config = gson.fromJson(reader, Configuration.class); //retrieving the configuration from a JSON file
                     } catch (FileNotFoundException e) {
                         logger.error(e.getMessage());
+                        logger.error("Configuration file not found. Set absolute path to the JSON file.");
                     } catch (IOException e) {
                         logger.error(e.getMessage());
                         throw new RuntimeException(e);
+                    } catch (Exception e){
+                        logger.error(e.getMessage());
                     }
 
+                    if (config == null) {
+                        logger.error("Configuration could not be loaded. Exiting...");
+                        System.out.println("Failed to load configuration. Please check the file and try again.");
+                        System.exit(1);
+                    }
                     validOption = true;
                     break;
                 default:

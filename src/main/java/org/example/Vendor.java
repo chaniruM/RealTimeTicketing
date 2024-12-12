@@ -19,6 +19,38 @@ public class Vendor implements Runnable{
 
     private static final Logger logger = LogManager.getLogger(Vendor.class); //instance of the logger
 
+    public TicketPool getTicketPool() {
+        return ticketPool;
+    }
+
+    public void setTicketPool(TicketPool ticketPool) {
+        this.ticketPool = ticketPool;
+    }
+
+    public int getReleaseRate() {
+        return releaseRate;
+    }
+
+    public void setReleaseRate(int releaseRate) {
+        this.releaseRate = releaseRate;
+    }
+
+    public int getTicketsAdded() {
+        return ticketsAdded;
+    }
+
+    public void setTicketsAdded(int ticketsAdded) {
+        this.ticketsAdded = ticketsAdded;
+    }
+
+    public String getVendorID() {
+        return vendorID;
+    }
+
+    public void setVendorID(String vendorID) {
+        this.vendorID = vendorID;
+    }
+
     /**
      * Creates a new vendor with the given ID, ticket pool, and release rate.
      *
